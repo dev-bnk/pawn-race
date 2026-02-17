@@ -22,7 +22,7 @@ el.innerHTML = `
 
       <div class="topbarActions">
         <a class="topbarLink" href="#" id="howToBtn">How to play</a>
-        <a class="topbarLink" href="https://github.com/dev-bnk" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="topbarLink" href="https://github.com/dev-bnk/pawn-race" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
   </header>
