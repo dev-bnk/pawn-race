@@ -1,6 +1,4 @@
-/* =========================
-   Theme
-========================= */
+/* Theme */
 :root {
   --pico-font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
     Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
@@ -34,7 +32,6 @@
   --border: rgba(15, 23, 42, 0.12);
   --shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
 
-  /* Layout constants */
   --topbarH: 92px;
   --panelW: 420px;
   --gap: 14px;
@@ -42,7 +39,6 @@
   --statusBlock: 58px;
   --maxBoard: 720px;
 
-  /* Control sizing */
   --controlH: 32px;
   --controlRadius: 12px;
   --controlFont: 13px;
@@ -54,9 +50,7 @@
   }
 }
 
-/* =========================
-   Base
-========================= */
+/* Base */
 html,
 body {
   height: 100%;
@@ -68,9 +62,7 @@ body {
   overflow: hidden;
 }
 
-/* =========================
-   Top bar
-========================= */
+/* Top bar */
 .topbar {
   top: 0;
   z-index: 100;
@@ -84,10 +76,9 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 0; /* was 0px 0 */
+  padding: 0;
 }
 
-/* Branding */
 .brand {
   display: flex;
   align-items: center;
@@ -124,7 +115,6 @@ body {
   margin-top: 0;
 }
 
-/* Top bar actions */
 .topbarActions {
   display: flex;
   gap: 10px;
@@ -160,9 +150,7 @@ body {
   box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.22) !important;
 }
 
-/* =========================
-   App layout
-========================= */
+/* Layout */
 .appMain {
   height: calc(100vh - var(--topbarH));
   padding: 12px 0;
@@ -177,9 +165,7 @@ body {
   align-items: stretch;
 }
 
-/* =========================
-   Board
-========================= */
+/* Board */
 #boardCard {
   background: #ffffff;
   border: 0;
@@ -197,7 +183,6 @@ body {
     100vh - var(--topbarH) - var(--outerPad) - var(--statusBlock)
   );
   --maxByWidth: calc(100vw - var(--panelW) - var(--gap) - 48px);
-
   --boardSize: min(var(--maxByHeight), var(--maxByWidth), var(--maxBoard));
 
   width: var(--boardSize);
@@ -253,9 +238,7 @@ body {
   min-height: 16px;
 }
 
-/* =========================
-   Panel
-========================= */
+/* Panel */
 .panel.card {
   background: linear-gradient(
     180deg,
@@ -266,7 +249,6 @@ body {
   border-radius: 16px;
   padding: 12px;
   box-shadow: none !important;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -309,10 +291,11 @@ body {
 }
 
 .panel hr {
-  margin: 8px 0 !important;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 12px 0 !important;
 }
 
-/* Panel buttons */
 .panel .btn,
 #startBtn {
   width: 100%;
@@ -322,7 +305,6 @@ body {
   border-radius: var(--controlRadius);
 }
 
-/* Panel inputs */
 .panel.card input,
 .panel.card select {
   font-size: var(--controlFont) !important;
@@ -337,10 +319,18 @@ body {
   padding-bottom: 0.18rem !important;
 }
 
-/* AI row */
 .aiRow {
   align-items: center;
   justify-content: space-between;
+}
+
+.aiRow .field {
+  min-width: 220px;
+  flex: 1 1 auto;
+}
+
+.panel .row > .field {
+  min-width: 180px;
 }
 
 .toggleRow {
@@ -359,7 +349,6 @@ body {
   line-height: 1.05;
 }
 
-/* Toggle */
 .toggle {
   position: relative;
   display: inline-flex;
@@ -413,7 +402,6 @@ body {
   box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.22);
 }
 
-/* Start/reset */
 .startRow {
   display: flex;
   gap: 10px;
@@ -448,9 +436,32 @@ body {
   box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.16);
 }
 
-/* =========================
-   Modals
-========================= */
+/* Desktop: scroll panel only */
+@media (min-width: 901px) {
+  .layout {
+    overflow: hidden;
+  }
+
+  .layout > * {
+    min-height: 0;
+  }
+
+  .boardWrap {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .panel.card {
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Modals */
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -509,7 +520,6 @@ body {
   margin-top: 4px !important;
 }
 
-/* Modal close X */
 .iconBtn {
   background: transparent !important;
   border: none !important;
@@ -526,9 +536,6 @@ body {
 }
 
 .iconBtn:hover {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
   opacity: 1;
 }
 
@@ -579,7 +586,6 @@ body {
   background: rgba(15, 23, 42, 0.02);
 }
 
-/* Modal footer buttons */
 .modalFooter .btn,
 #howToOkBtn,
 #setupOkBtn {
@@ -593,9 +599,12 @@ body {
   justify-content: center !important;
 }
 
-/* =========================
-   Celebration
-========================= */
+#setupMsg {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Celebration */
 .celebrate {
   position: absolute;
   inset: 0;
@@ -644,7 +653,6 @@ body {
   line-height: 1.35;
 }
 
-/* Confetti */
 .confetti {
   position: absolute;
   inset: 0;
@@ -670,9 +678,7 @@ body {
   }
 }
 
-/* =========================
-   Pre-game overlay
-========================= */
+/* Pre-game */
 .pregame {
   position: absolute;
   inset: 0;
@@ -728,9 +734,7 @@ body {
   margin: 5px 0;
 }
 
-/* =========================
-   Mobile
-========================= */
+/* Mobile */
 @media (max-width: 900px) {
   body {
     overflow: auto;
@@ -786,7 +790,7 @@ body {
   }
 }
 
-/* Hide link under board (keep for now) */
+/* Hidden for now */
 .rulesLink {
   display: none !important;
 }

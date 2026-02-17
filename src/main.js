@@ -65,7 +65,7 @@ el.innerHTML = `
       </div>
 
       <div class="modalBody">
-        <div id="setupMsg" style="font-size:14px; line-height:1.5;"></div>
+        <div id="setupMsg"></div>
       </div>
 
       <div class="modalFooter">
@@ -133,7 +133,7 @@ el.innerHTML = `
           Pawns are placed left-to-right on White’s 2nd rank.
         </div>
 
-        <hr style="border:none;border-top:1px solid rgba(0,0,0,.12);margin:12px 0;">
+        <hr>
 
         <h2>Pieces Team (Black)</h2>
 
@@ -163,12 +163,12 @@ el.innerHTML = `
           Pieces are placed left-to-right on Black’s back rank. Max 8 pieces total. At least 1 piece required.
         </div>
 
-        <hr style="border:none;border-top:1px solid rgba(0,0,0,.12);margin:12px 0;">
+        <hr>
 
         <h2>Play against the Computer</h2>
 
         <div class="row aiRow">
-          <div class="field" style="min-width:220px; flex: 1 1 auto;">
+          <div class="field">
             <label for="playerSide">You play as</label>
             <select id="playerSide">
               <option value="pawn">Pawn Team (White)</option>
@@ -186,7 +186,7 @@ el.innerHTML = `
         </div>
 
         <div class="row">
-          <div class="field" style="min-width:180px;">
+          <div class="field">
             <label for="aiMoveTime">Move time (ms)</label>
             <select id="aiMoveTime">
               <option value="50">50</option>
@@ -200,7 +200,7 @@ el.innerHTML = `
             </select>
           </div>
 
-          <div class="field" style="min-width:180px;">
+          <div class="field">
             <label for="aiDepth">Depth</label>
             <select id="aiDepth">
               <option value="1">1</option>
@@ -213,7 +213,7 @@ el.innerHTML = `
           </div>
         </div>
 
-        <hr style="border:none;border-top:1px solid rgba(0,0,0,.12);margin:12px 0;">
+        <hr>
 
         <div class="startRow">
           <button id="startBtn" class="btn" type="button">Start Game</button>
@@ -251,13 +251,13 @@ const winTitleEl = document.getElementById("winTitle");
 const winSubEl = document.getElementById("winSub");
 const playAgainBtn = document.getElementById("playAgainBtn");
 
-// How to Play modal hooks
+// How to Play modal
 const howToBtn = document.getElementById("howToBtn");
 const howToModal = document.getElementById("howToModal");
 const howToCloseBtn = document.getElementById("howToCloseBtn");
 const howToOkBtn = document.getElementById("howToOkBtn");
 
-// Setup Error modal hooks
+// Setup Error modal
 const setupModal = document.getElementById("setupModal");
 const setupCloseBtn = document.getElementById("setupCloseBtn");
 const setupOkBtn = document.getElementById("setupOkBtn");
@@ -272,13 +272,13 @@ let gameStarted = false;
 const pawnColor = "w";
 const piecesColor = "b";
 
-// Who the user controls this game: "w" or "b"
+// Player colors this game
 let userColor = "b";
 let aiColor = "w";
 
 let aiThinking = false;
 
-// Mobile helper: scroll to absolute top after start/reset
+// Mobile: scroll to top after start/reset
 function isMobileLayout() {
   return window.matchMedia("(max-width: 900px)").matches;
 }
@@ -293,7 +293,7 @@ function scrollToTopIfMobile() {
 }
 
 // -----------------------------
-// Modal behavior
+// Modals
 // -----------------------------
 function openHowTo() {
   howToModal.classList.add("show");
@@ -349,7 +349,7 @@ window.addEventListener("keydown", (e) => {
 });
 
 // -----------------------------
-// Celebration UI
+// Celebration
 // -----------------------------
 function clearConfetti() {
   confettiEl.innerHTML = "";
@@ -404,7 +404,7 @@ function hidePregameOverlay() {
 }
 
 // -----------------------------
-// Stockfish Worker (robust + queued, time-bounded)
+// Stockfish worker (queued + time-bounded)
 // -----------------------------
 let sf = null;
 let sfUciOk = false;
@@ -533,7 +533,7 @@ function sfGetBestMoveQueued({ fen, movetimeMs, depth, timeoutMs }) {
 }
 
 // -----------------------------
-// Helpers: build ranks as arrays then convert to FEN
+// FEN helpers
 // -----------------------------
 function rankArrayToFen(rankArr) {
   let fen = "";
@@ -571,7 +571,7 @@ function pawnsToStartRank({ pawnCount }) {
 }
 
 // -----------------------------
-// FEN builder (variant start)
+// Variant start FEN
 // -----------------------------
 function buildFen({ pawnCount, q, r, b, n }) {
   const piecesBackRank = piecesToBackRank({ q, r, b, n });
@@ -595,7 +595,7 @@ function buildFen({ pawnCount, q, r, b, n }) {
 }
 
 // -----------------------------
-// Engine-safe FEN (adds kings only for Stockfish)
+// Engine-safe FEN (adds kings for Stockfish)
 // -----------------------------
 function engineFenFromVariantGame() {
   const board = game.board();
@@ -612,40 +612,12 @@ function engineFenFromVariantGame() {
 
   const files = "abcdefgh";
   const candidatesWhite = [
-    "a1",
-    "b1",
-    "c1",
-    "d1",
-    "e1",
-    "f1",
-    "g1",
-    "h1",
-    "a2",
-    "b2",
-    "c2",
-    "d2",
-    "e2",
-    "f2",
-    "g2",
-    "h2",
+    "a1","b1","c1","d1","e1","f1","g1","h1",
+    "a2","b2","c2","d2","e2","f2","g2","h2",
   ];
   const candidatesBlack = [
-    "h8",
-    "g8",
-    "f8",
-    "e8",
-    "d8",
-    "c8",
-    "b8",
-    "a8",
-    "h7",
-    "g7",
-    "f7",
-    "e7",
-    "d7",
-    "c7",
-    "b7",
-    "a7",
+    "h8","g8","f8","e8","d8","c8","b8","a8",
+    "h7","g7","f7","e7","d7","c7","b7","a7",
   ];
 
   function isEmpty(sq) {
@@ -743,7 +715,7 @@ function checkPiecesTeamWinWhenPawnToMove() {
 }
 
 // -----------------------------
-// Move legality + rendering
+// Move + rendering
 // -----------------------------
 function setStatus(textOverride) {
   if (textOverride) {
@@ -819,7 +791,7 @@ function syncBoard() {
 }
 
 // -----------------------------
-// AI move (time-bounded)
+// AI move
 // -----------------------------
 async function maybeAiMove() {
   if (!gameStarted) return;
@@ -922,7 +894,7 @@ const ground = Chessground(boardEl, {
 });
 
 // -----------------------------
-// Start game / UI wiring
+// Start/reset wiring
 // -----------------------------
 function setSideFromUI() {
   userColor = playerSideEl.value === "pieces" ? "b" : "w";
@@ -943,7 +915,7 @@ function startGameFromUI({ scrollTop = false } = {}) {
 
   const totalPieces = q + r + b + n;
 
-  // Enforce minimums
+  // Minimum setup rules
   if (!Number.isFinite(pawnCount) || pawnCount < 1) {
     openSetupError("Pawn Team must start with at least 1 pawn.");
     return;
@@ -968,7 +940,7 @@ function startGameFromUI({ scrollTop = false } = {}) {
 
     checkPiecesTeamWinWhenPawnToMove();
 
-    // If user is black and AI is enabled, AI (white) moves first.
+    // If user is black and AI is on, AI moves first.
     maybeAiMove();
 
     if (scrollTop) scrollToTopIfMobile();
@@ -1005,6 +977,6 @@ playerSideEl.addEventListener("change", () => {
   syncBoard();
 });
 
-// Initial locked state: empty board + pregame overlay
+// Initial state
 setSideFromUI();
 syncBoard();
