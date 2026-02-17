@@ -263,7 +263,7 @@ body {
 
 .row {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   flex-wrap: wrap;
   margin-bottom: 6px;
 }
@@ -286,7 +286,6 @@ body {
 .hint {
   font-size: 11px;
   color: var(--muted);
-  margin-top: 4px;
   line-height: 1.25;
 }
 
